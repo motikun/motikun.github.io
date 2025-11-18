@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NeoForge 1.21.8｜アイテム追加</title>
+        <link href="../../styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1>アイテム追加について</h1>
+
+        <p>サンプルコード</p>
+        <pre>
+            <code>
+public class ModItems {
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems("examplemod");
+
+    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerItem(
+            "example_item",
+            Item::new,
+            new Item.Properties()
+    );
+
+    public static void register(IEventBus eventBus){
+        ITEMS.register(eventBus);
+    }
+}
+            </code>
+        </pre>
+        
+        <p>このコードを動作させるにはメインクラスに登録する必要があります。</p>
+
+        <pre>
+            <code>
+@Mod(ExampleMod.MOD_ID)
+public class ExampleMod {
+    public static final String MOD_ID = "examplemod";
+
+    public ExampleMod(IEventBus eventBus) {
+        // ★ これを追加
+        ModItems.register(eventBus)
+    }
+}
+            </code>
+        </pre>
+    </body>
+</html>
