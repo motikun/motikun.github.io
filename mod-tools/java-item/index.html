@@ -29,7 +29,7 @@
                 const upperId = idValue.toUpperCase();
 
                 const code = 
-                    `public static final DeferredItem<Item> ${upperId} = ITEMS.register("${idValue}", () -> new ${classValue}(new Item.Properties().stacksTo(1)));`;
+                    `public static final DeferredItem<Item> ${upperId} = ITEMS.register("${idValue}", () -> new ${classValue}(new Item.Properties()));`;
                 
                 output.innerText = code;
             });
