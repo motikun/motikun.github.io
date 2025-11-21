@@ -5,11 +5,12 @@
         <link href="../../styles.css" rel="stylesheet">
     </head>
     <body>
-        <h1>アイテム追加について</h1>
+        <main>
+            <h1>アイテム追加について</h1>
 
-        <p>サンプルコード</p>
-        <pre>
-            <code>
+            <p>サンプルコード</p>
+            <pre>
+                <code>
 public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems("examplemod");
 
@@ -23,13 +24,13 @@ public class ModItems {
         ITEMS.register(eventBus);
     }
 }
-            </code>
-        </pre>
-        
-        <p>このコードを動作させるにはメインクラスに登録する必要があります。</p>
+                </code>
+            </pre>
+            
+            <p>このコードを動作させるにはメインクラスに登録する必要があります。</p>
 
-        <pre>
-            <code>
+            <pre>
+                <code>
 @Mod(ExampleMod.MOD_ID)
 public class ExampleMod {
     public static final String MOD_ID = "examplemod";
@@ -39,7 +40,8 @@ public class ExampleMod {
         ModItems.register(eventBus)
     }
 }
-            </code>
-        </pre>
+                </code>
+            </pre>
+        </main>
     </body>
 </html>

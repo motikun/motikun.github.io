@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>コードジェネレーター</title>
+    </head>
+    <body>
+        <p>ID</p>
+        <input type="text" id="id">
+
+        <p>クラス名(大文字小文字区別)</p>
+        <input type="text" id="class">
+
+        <button id="generate">生成</button>
+
+        <h3>生成されたコード:</h3>
+        <pre id="code-output"></pre>
+
+        <script>
+            const generateButton = document.getElementById("generate");
+            const idInput = document.getElementById("id");
+            const classNameInput = document.getElementById("class");
+            const output = document.getElementById("code-output");
+
+            generateButton.addEventListener('click', () => {
+                const idValue = idInput.value.trim();
+                const classValue = classNameInput.value.trim();
+
+                const upperId = idValue.toUpperCase();
+
+                const code = 
+                    `public static final DeferredItem<Item> ${upperId} = ITEMS.register("${idValue}", () -> new ${classValue}(new Item.Properties().stacksTo(1)));`;
+                
+                output.innerText = code;
+            });
+        </script>
+    </body>
+</html>
