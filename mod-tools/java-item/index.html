@@ -8,7 +8,7 @@
         <p>ID</p>
         <input type="text" id="id">
 
-        <p>クラス名(大文字小文字区別)</p>
+        <p>クラス名(大文字小文字区別) *空欄の場合はIDから自動生成*</p>
         <input type="text" id="class">
 
         <button id="generate">生成</button>
@@ -17,21 +17,61 @@
         <pre id="code-output"></pre>
 
         <script>
+            // スネークケース（snake_case）をパスカルケース（PascalCase）に変換する関数
+            function toPascalCase(snakeCase) {
+                return snakeCase
+                    .split('_')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join('');
+            }
+
             const generateButton = document.getElementById("generate");
             const idInput = document.getElementById("id");
             const classNameInput = document.getElementById("class");
             const output = document.getElementById("code-output");
 
-            generateButton.addEventListener('click', () => {
+            // コード生成のロジックを関数化
+            function generateCode() {
                 const idValue = idInput.value.trim();
-                const classValue = classNameInput.value.trim();
+                let classValue = classNameInput.value.trim();
 
+                if (idValue === "") {
+                    output.innerText = "エラー: IDを入力してください。";
+                    return;
+                }
+
+                // クラス名が空の場合、IDからクラス名を自動生成
+                if (classValue === "") {
+                    classValue = toPascalCase(idValue);
+                }
+                
                 const upperId = idValue.toUpperCase();
 
                 const code = 
-                    `public static final DeferredItem<Item> ${upperId} = ITEMS.register("${idValue}", () -> new ${classValue}(new Item.Properties()));`;
+                    `public static final DeferredItem<Item> ${upperId} = ITEMS.register("${idValue}", () -> new ${classValue}(new Item.Properties().stacksTo(1)));`;
                 
                 output.innerText = code;
+            }
+
+            // 1. ボタンクリックで生成
+            generateButton.addEventListener('click', generateCode);
+
+            // 2. ID入力フィールドでのEnterキー押下で生成
+            idInput.addEventListener('keydown', (event) => {
+                // event.key が 'Enter' (エンターキー) であるかチェック
+                if (event.key === 'Enter') {
+                    // デフォルトのEnterキーによる動作（フォーム送信など）を防ぐ
+                    event.preventDefault(); 
+                    // コード生成関数を呼び出す
+                    generateCode(); 
+                }
+            });
+
+            classNameInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    generateCode();
+                }
             });
         </script>
     </body>
